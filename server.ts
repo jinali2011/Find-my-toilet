@@ -1,7 +1,10 @@
+import "dotenv/config";
 import express from "express";
 import { createServer as createViteServer } from "vite";
 import Database from "better-sqlite3";
 import path from "path";
+
+import { searchRestroomsInArea } from "./services/geminiService";
 
 const db = new Database("loolocate.db");
 
@@ -128,6 +131,17 @@ async function startServer() {
     const { issue_type, comment } = req.body;
     db.prepare("INSERT INTO reports (restroom_id, issue_type, comment) VALUES (?, ?, ?)").run(id, issue_type, comment);
     res.json({ success: true });
+  });
+
+  app.post("/api/restrooms/search", async (req, res) => {
+    const { latitude, longitude } = req.body;
+    try {
+      const results = await searchRestroomsInArea(latitude, longitude);
+      res.json(results);
+    } catch (error) {
+      console.error('Error searching area:', error);
+      res.status(500).json({ error: 'Failed to search area' });
+    }
   });
 
   // Vite middleware for development

@@ -10,7 +10,6 @@ import LoginPage from './components/LoginPage';
 import UserTypeSelection, { UserType } from './components/UserTypeSelection';
 import Logo from './components/Logo';
 import PaymentModal from './components/PaymentModal';
-import { searchRestroomsInArea } from './services/geminiService';
 import { Restroom, FilterState } from './types';
 import { Plus, Search, User, Loader2, Navigation, LogOut, MapPin, Zap, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -94,7 +93,15 @@ export default function App() {
     if (!userLocation) return;
     setIsSearching(true);
     try {
-      const results = await searchRestroomsInArea(userLocation[0], userLocation[1]);
+      const searchRes = await fetch('/api/restrooms/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ latitude: userLocation[0], longitude: userLocation[1] })
+      });
+      
+      if (!searchRes.ok) throw new Error('Search failed');
+      
+      const results = await searchRes.json();
       
       // Add results to database
       for (const r of results) {
