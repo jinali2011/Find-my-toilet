@@ -1,0 +1,53 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@theme {
+  --color-primary: #059669;
+  --color-emergency: #ef4444;
+  --color-verified: #10b981;
+  --color-high-contrast-bg: #ffffff;
+  --color-high-contrast-text: #000000;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* Custom Leaflet Tooltip Styles */
+.leaflet-tooltip-pane .leaflet-tooltip.custom-tooltip {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.leaflet-tooltip-top:before {
+  display: none;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 1.5rem;
+  padding: 0.5rem;
+}
+
+.leaflet-popup-tip-container {
+  display: none;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

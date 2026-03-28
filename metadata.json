@@ -1,0 +1,7 @@
+{
+  "name": "Find My Toilet",
+  "description": "A community-driven restroom locator helping citizens find clean and accessible toilets nearby.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
